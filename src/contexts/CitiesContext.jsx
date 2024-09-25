@@ -1,4 +1,11 @@
-import { createContext, useCallback, useContext, useEffect, useReducer } from 'react';
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useReducer,
+	useState,
+} from 'react';
 import { CitiesContextReducer, INITIAL_STATE } from '../functions/CitiesContextReducer';
 import PropTypes from 'prop-types';
 
@@ -12,6 +19,7 @@ function CitiesProvider(props) {
 	const { children } = props;
 	const [state, dispatch] = useReducer(CitiesContextReducer, INITIAL_STATE);
 	const { citiesArray, isLoading, currentCity, errorMessage } = state;
+	const [watched, setWatched] = useState([]);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -29,10 +37,11 @@ function CitiesProvider(props) {
 					Signal: controller.signal,
 				};
 
-				const response = await fetch(fetchURL, fetchOptions);
-				if (!response.ok) throw new Error('Fetch Response Failed');
+				// const response = await fetch(fetchURL, fetchOptions);
+				// if (!response.ok) throw new Error('Fetch Response Failed');
 
-				const data = await response.json();
+				// const data = await response.json();
+				const data = watched;
 				dispatch({ type: 'cities/loaded', payload: data });
 			} catch (error) {
 				if (error.name !== 'AbortError') {
@@ -46,11 +55,11 @@ function CitiesProvider(props) {
 		return () => {
 			controller.abort();
 		};
-	}, []);
+	}, [watched]);
 
 	const getCity = useCallback(
 		async (id) => {
-			if (Number(id) === currentCity.id) return;
+			if (id === currentCity.id) return;
 
 			try {
 				dispatch({ type: 'loading' });
@@ -63,17 +72,19 @@ function CitiesProvider(props) {
 					},
 				};
 
-				const response = await fetch(fetchURL, fetchOptions);
-				if (!response.ok) throw new Error('Fetch Response Failed');
+				// const response = await fetch(fetchURL, fetchOptions);
+				// if (!response.ok) throw new Error('Fetch Response Failed');
 
-				const data = await response.json();
-				dispatch({ type: 'city/loaded', payload: data });
+				// const data = await response.json();
+				const data = watched.filter((cityObject) => cityObject.id === id);
+				console.log(data);
+				dispatch({ type: 'city/loaded', payload: data[0] });
 			} catch (error) {
 				dispatch({ type: 'rejected', payload: error.message });
 				console.error({ error });
 			}
 		},
-		[currentCity.id]
+		[currentCity.id, watched]
 	);
 
 	const createCity = async (newCityObject) => {
@@ -90,11 +101,12 @@ function CitiesProvider(props) {
 				body: JSON.stringify(newCityObject),
 			};
 
-			const response = await fetch(fetchURL, fetchOptions);
-			if (!response.ok) throw new Error('Fetch Response Failed');
+			// const response = await fetch(fetchURL, fetchOptions);
+			// if (!response.ok) throw new Error('Fetch Response Failed');
 
-			const data = await response.json();
-			dispatch({ type: 'cities/created', payload: data });
+			// const data = await response.json();
+			setWatched((currentCityArray) => [...currentCityArray, newCityObject]);
+			dispatch({ type: 'cities/created', payload: newCityObject });
 		} catch (error) {
 			dispatch({ type: 'rejected', payload: error.message });
 			console.log({ error });
@@ -114,9 +126,13 @@ function CitiesProvider(props) {
 				},
 			};
 
-			const response = await fetch(fetchURL, fetchOptions);
-			if (!response.ok) throw new Error('Fetch Response Failed');
+			// const response = await fetch(fetchURL, fetchOptions);
+			// if (!response.ok) throw new Error('Fetch Response Failed');
 
+			// const data = await response.json();
+			setWatched((currentCityArray) =>
+				currentCityArray.filter((cityObject) => cityObject.id !== cityID)
+			);
 			dispatch({ type: 'cities/deleted', payload: cityID });
 		} catch (error) {
 			dispatch({ type: 'rejected', payload: error.message });

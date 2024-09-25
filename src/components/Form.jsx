@@ -60,6 +60,7 @@ export default function Form() {
 			emoji: countryEmoji,
 			date,
 			notes,
+			id: crypto.randomUUID(),
 			position: { lat: mapLat, lng: mapLng },
 		};
 
