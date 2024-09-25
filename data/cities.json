@@ -1,0 +1,76 @@
+{
+  "cities": [
+    {
+      "cityName": "Lisbon",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2027-10-31T15:59:59.138Z",
+      "notes": "My favorite city so far!",
+      "position": {
+        "lat": 38.727881642324164,
+        "lng": -9.140900099907554
+      },
+      "id": "73930385"
+    },
+    {
+      "cityName": "Madrid",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2027-07-15T08:22:53.976Z",
+      "notes": "",
+      "position": {
+        "lat": 40.46635901755316,
+        "lng": -3.7133789062500004
+      },
+      "id": "17806751"
+    },
+    {
+      "cityName": "Berlin",
+      "country": "Germany",
+      "emoji": "🇩🇪",
+      "date": "2027-02-12T09:24:11.863Z",
+      "notes": "Amazing 😃",
+      "position": {
+        "lat": 52.53586782505711,
+        "lng": 13.376933665713324
+      },
+      "id": "98443197"
+    },
+    {
+      "id": "ba25",
+      "cityName": "San Gregorio Matese",
+      "country": "Italy",
+      "emoji": "IT",
+      "date": "2024-08-20T18:34:38.812Z",
+      "notes": "Notes",
+      "position": {
+        "lat": "41.44272637767212",
+        "lng": "14.414062500000002"
+      }
+    },
+    {
+      "id": "32aa",
+      "cityName": "Manila",
+      "country": "Philippines (the)",
+      "emoji": "PH",
+      "date": "2024-08-20T18:35:15.820Z",
+      "notes": "Hello!",
+      "position": {
+        "lat": "14.530415228007362",
+        "lng": "120.98693847656251"
+      }
+    },
+    {
+      "id": "9d15",
+      "cityName": "New York City",
+      "country": "United States of America (the)",
+      "emoji": "US",
+      "date": "2024-08-22T16:33:02.421Z",
+      "notes": "Hello!",
+      "position": {
+        "lat": "40.56389453066509",
+        "lng": "-73.98193359375001"
+      }
+    }
+  ]
+}
